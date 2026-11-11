@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'unsafe-inline'; script-src 'unsafe-inline'">
+<title>تفعيل البرنامج</title>
+<style>
+  *{box-sizing:border-box;font-family:'Segoe UI',Tahoma,sans-serif}
+  body{margin:0;height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#0f766e,#115e59);color:#0f172a}
+  .card{background:#fff;width:380px;padding:32px 28px;border-radius:16px;box-shadow:0 20px 50px rgba(0,0,0,.3);text-align:center}
+  h1{margin:0 0 6px;font-size:20px;color:#0f766e}
+  p{margin:0 0 20px;color:#64748b;font-size:14px}
+  input{width:100%;padding:12px;font-size:20px;letter-spacing:4px;text-align:center;border:2px solid #cbd5e1;border-radius:10px;outline:none;direction:ltr}
+  input:focus{border-color:#0f766e}
+  button{margin-top:16px;width:100%;padding:12px;font-size:16px;border:0;border-radius:10px;background:#0f766e;color:#fff;cursor:pointer}
+  button:hover{background:#115e59}
+  .quit{background:transparent;color:#64748b;margin-top:6px;font-size:13px}
+  .quit:hover{background:transparent;color:#0f172a}
+  #msg{min-height:22px;margin-top:12px;font-size:14px}
+  .err{color:#dc2626}.ok{color:#16a34a}
+</style>
+</head>
+<body>
+<div class="card">
+  <h1>نظام إدارة العيادة</h1>
+  <p>أدخل رمز التفعيل لتشغيل البرنامج</p>
+  <input id="code" type="password" inputmode="numeric" autofocus placeholder="••••••••">
+  <button id="go">تفعيل</button>
+  <div id="msg"></div>
+  <button class="quit" id="quit">إغلاق</button>
+</div>
+<script>
+const $=id=>document.getElementById(id), msg=$('msg');
+async function go(){
+  const r = await window.licenseApi.activate($('code').value);
+  if(r.ok){ msg.className='ok'; msg.textContent='تم التفعيل بنجاح ✓'; }
+  else { msg.className='err'; msg.textContent='رمز التفعيل غير صحيح'; $('code').select(); }
+}
+$('go').onclick=go;
+$('code').addEventListener('keydown',e=>{if(e.key==='Enter')go()});
+$('quit').onclick=()=>window.licenseApi.quit();
+</script>
+</body>
+</html>

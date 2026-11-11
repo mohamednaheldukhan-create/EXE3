@@ -1,0 +1,35 @@
+{
+  "name": "clinic-management-system",
+  "productName": "Clinic Management System",
+  "version": "1.0.0",
+  "description": "نظام إدارة العيادة - DUKHAN",
+  "main": "main.js",
+  "author": "DUKHAN",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --win nsis --x64"
+  },
+  "devDependencies": {
+    "electron": "^33.2.0",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "com.clinic.app",
+    "productName": "Clinic Management System",
+    "directories": { "output": "dist" },
+    "files": ["main.js", "preload.js", "activation.html", "app/**/*"],
+    "win": {
+      "target": [{ "target": "nsis", "arch": ["x64"] }],
+      "artifactName": "Clinic-Management-System-Setup-${version}.exe"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "perMachine": false,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "نظام إدارة العيادة",
+      "language": "1025"
+    }
+  }
+}
