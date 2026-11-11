@@ -2,7 +2,7 @@ name: Build Windows EXE
 on: [workflow_dispatch, push]
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: windows-2022
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
